@@ -18,8 +18,8 @@ import ar from "./ar";
 import bn from "./bn";
 import { merge } from "../utils/merge";
 
-import type { LocaleType } from "./vi";
-export type { LocaleType, PartialLocaleType } from "./vi";
+import type { LocaleType } from "./cn";
+export type { LocaleType, PartialLocaleType } from "./cn";
 
 const ALL_LANGS = {
   vi,
