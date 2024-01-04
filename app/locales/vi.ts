@@ -71,6 +71,20 @@ const vi: PartialLocaleType = {
   Settings: {
     Title: "Cài đặt",
     SubTitle: "Tất cả cài đặt",
+    Danger: {
+      Reset: {
+        Title: "Đặt lại tất cả các thiết lập",
+        SubTitle: "Đặt lại tất cả các mục cài đặt về mặc định",
+        Action: "Đặt lại",
+        Confirm: "Xác nhận đặt lại tất cả cài đặt về mặc định?",
+      },
+      Clear: {
+        Title: "Xóa tất cả dữ liệu",
+        SubTitle: "Xóa tất cả tin nhắn và cài đặt",
+        Action: "Xóa",
+        Confirm: "Xác nhận để xóa tất cả tin nhắn và cài đặt?",
+      },
+    },
     Access: {
       CustomEndpoint: {
         Title: "Custom Endpoint",

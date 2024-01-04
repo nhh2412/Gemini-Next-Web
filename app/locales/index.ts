@@ -1,25 +1,10 @@
-import cn from "./cn";
 import en from "./en";
-import pt from "./pt";
-import tw from "./tw";
-import id from "./id";
-import fr from "./fr";
-import es from "./es";
-import it from "./it";
-import tr from "./tr";
-import jp from "./jp";
-import de from "./de";
 import vi from "./vi";
-import ru from "./ru";
-import no from "./no";
-import cs from "./cs";
-import ko from "./ko";
-import ar from "./ar";
-import bn from "./bn";
+
 import { merge } from "../utils/merge";
 
-import type { LocaleType } from "./cn";
-export type { LocaleType, PartialLocaleType } from "./cn";
+import type { LocaleType } from "./en";
+export type { LocaleType, PartialLocaleType } from "./en";
 
 const ALL_LANGS = {
   vi,
