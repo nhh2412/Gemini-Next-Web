@@ -204,16 +204,16 @@ export function MessageSelector(props: {
                 onClickIndex(i);
               }}
             >
-              <div className={styles["avatar"]}>
+              {/* <div className={styles["avatar"]}>
                 {m.role === "user" ? (
-                  <Avatar avatar={config.avatar}></Avatar>
+                  <Avatar></Avatar>
                 ) : (
                   <MaskAvatar
                     avatar={session.mask.avatar}
                     model={m.model || session.mask.modelConfig.model}
                   />
                 )}
-              </div>
+              </div> */}
               <div className={styles["body"]}>
                 <div className={styles["date"]}>
                   {new Date(m.date).toLocaleString()}

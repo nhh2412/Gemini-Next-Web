@@ -47,11 +47,26 @@ const vi: PartialLocaleType = {
     },
   },
   Export: {
+    Steps: {
+      Select: "Lựa chọn",
+      Preview: "Xem trước",
+    },
+    IncludeContext: {
+      Title: "Including Context",
+      SubTitle: "Export context prompts in mask or not",
+    },
+
     Title: "Tất cả tin nhắn",
     Copy: "Sao chép tất cả",
     Download: "Tải xuống",
     MessageFromYou: "Tin nhắn của bạn",
     MessageFromChatGPT: "Tin nhắn từ ChatGPT",
+  },
+  Select: {
+    Search: "Tìm kiếm",
+    All: "Chọn tất cả",
+    Latest: "Chọn mới nhất",
+    Clear: "Bỏ chọn",
   },
   Memory: {
     Title: "Lịch sử tin nhắn",
@@ -278,6 +293,9 @@ const vi: PartialLocaleType = {
     Edit: "Chỉnh sửa",
   },
   Exporter: {
+    Description: {
+      Title: "Chỉ những tin nhắn sau khi xóa cuộc trò chuyện mới được hiển thị",
+    },
     Model: "Mô hình",
     Messages: "Thông điệp",
     Topic: "Chủ đề",
