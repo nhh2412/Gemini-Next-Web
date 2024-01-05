@@ -81,8 +81,6 @@ interface ChatProvider {
 }
 
 export class ClientApi {
-  public llm: LLMApi;
-
 
   config() {}
 
@@ -141,10 +139,6 @@ export function getHeaders() {
   const isAzure = accessStore.provider === ServiceProvider.Azure;
   const authHeader = isAzure ? "api-key" : "Authorization";
   const apiKey = isGoogle
-    ? accessStore.googleApiKey
-    : isAzure
-    ? accessStore.azureApiKey
-    : accessStore.openaiApiKey;
 
   const makeBearer = (s: string) => `${isAzure ? "" : "Bearer "}${s.trim()}`;
   const validString = (x: string) => x && x.length > 0;
