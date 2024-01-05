@@ -5,10 +5,12 @@ import {
   ServiceProvider,
 } from "../constant";
 import { ChatMessage, ModelType, useAccessStore, useChatStore } from "../store";
+import { ChatGPTApi } from "./platforms/openai";
 import { GeminiProApi } from "./platforms/google";
 export const ROLES = ["system", "user", "assistant"] as const;
 export type MessageRole = (typeof ROLES)[number];
 
+export const Models = ["gpt-3.5-turbo", "gpt-4"] as const;
 export type ChatModel = ModelType;
 
 export interface RequestMessage {
@@ -80,6 +82,15 @@ interface ChatProvider {
 }
 
 export class ClientApi {
+  public llm: LLMApi;
+
+  constructor(provider: ModelProvider) {
+    if (provider === ModelProvider.GeminiPro) {
+      this.llm = new GeminiProApi();
+      return;
+    }
+    this.llm = new ChatGPTApi();
+  }
 
   config() {}
 
@@ -135,10 +146,14 @@ export function getHeaders() {
   };
   const modelConfig = useChatStore.getState().currentSession().mask.modelConfig;
   const isGoogle = modelConfig.model === "gemini-pro";
-  const authHeader = "Authorization";
+  const authHeader = false ? "api-key" : "Authorization";
   const apiKey = isGoogle
+    ? accessStore.googleApiKey
+    : false
+    ? accessStore.azureApiKey
+    : accessStore.openaiApiKey;
 
-  const makeBearer = (s: string) => `${"" : "Bearer "}${s.trim()}`;
+  const makeBearer = (s: string) => `${false ? "" : "Bearer "}${s.trim()}`;
   const validString = (x: string) => x && x.length > 0;
 
   // use user's api key first
