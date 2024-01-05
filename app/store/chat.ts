@@ -306,60 +306,60 @@ export const useChatStore = createPersistStore(
         if (modelConfig.model === "gemini-pro") {
           api = new ClientApi(ModelProvider.GeminiPro);
         } else {
-          api = new ClientApi(ModelProvider.GPT);
+          // api = new ClientApi(ModelProvider.GPT);
         }
 
         // make request
-        api.llm.chat({
-          messages: sendMessages,
-          config: { ...modelConfig, stream: true },
-          onUpdate(message) {
-            botMessage.streaming = true;
-            if (message) {
-              botMessage.content = message;
-            }
-            get().updateCurrentSession((session) => {
-              session.messages = session.messages.concat();
-            });
-          },
-          onFinish(message) {
-            botMessage.streaming = false;
-            if (message) {
-              botMessage.content = message;
-              get().onNewMessage(botMessage);
-            }
-            ChatControllerPool.remove(session.id, botMessage.id);
-          },
-          onError(error) {
-            const isAborted = error.message.includes("aborted");
-            botMessage.content +=
-              "\n\n" +
-              prettyObject({
-                error: true,
-                message: error.message,
-              });
-            botMessage.streaming = false;
-            userMessage.isError = !isAborted;
-            botMessage.isError = !isAborted;
-            get().updateCurrentSession((session) => {
-              session.messages = session.messages.concat();
-            });
-            ChatControllerPool.remove(
-              session.id,
-              botMessage.id ?? messageIndex,
-            );
+        // api.llm.chat({
+        //   messages: sendMessages,
+        //   config: { ...modelConfig, stream: true },
+        //   onUpdate(message) {
+        //     botMessage.streaming = true;
+        //     if (message) {
+        //       botMessage.content = message;
+        //     }
+        //     get().updateCurrentSession((session) => {
+        //       session.messages = session.messages.concat();
+        //     });
+        //   },
+        //   onFinish(message) {
+        //     botMessage.streaming = false;
+        //     if (message) {
+        //       botMessage.content = message;
+        //       get().onNewMessage(botMessage);
+        //     }
+        //     ChatControllerPool.remove(session.id, botMessage.id);
+        //   },
+        //   onError(error) {
+        //     const isAborted = error.message.includes("aborted");
+        //     botMessage.content +=
+        //       "\n\n" +
+        //       prettyObject({
+        //         error: true,
+        //         message: error.message,
+        //       });
+        //     botMessage.streaming = false;
+        //     userMessage.isError = !isAborted;
+        //     botMessage.isError = !isAborted;
+        //     get().updateCurrentSession((session) => {
+        //       session.messages = session.messages.concat();
+        //     });
+        //     ChatControllerPool.remove(
+        //       session.id,
+        //       botMessage.id ?? messageIndex,
+        //     );
 
-            console.error("[Chat] failed ", error);
-          },
-          onController(controller) {
-            // collect controller for stop/retry
-            ChatControllerPool.addController(
-              session.id,
-              botMessage.id ?? messageIndex,
-              controller,
-            );
-          },
-        });
+        //     console.error("[Chat] failed ", error);
+        //   },
+        //   onController(controller) {
+        //     // collect controller for stop/retry
+        //     ChatControllerPool.addController(
+        //       session.id,
+        //       botMessage.id ?? messageIndex,
+        //       controller,
+        //     );
+        //   },
+        // });
       },
 
       getMemoryPrompt() {
@@ -491,7 +491,7 @@ export const useChatStore = createPersistStore(
         if (modelConfig.model === "gemini-pro") {
           api = new ClientApi(ModelProvider.GeminiPro);
         } else {
-          api = new ClientApi(ModelProvider.GPT);
+          // api = new ClientApi(ModelProvider.GPT);
         }
 
         // remove error messages if any
@@ -510,19 +510,19 @@ export const useChatStore = createPersistStore(
               content: Locale.Store.Prompt.Topic,
             }),
           );
-          api.llm.chat({
-            messages: topicMessages,
-            config: {
-              model: getSummarizeModel(session.mask.modelConfig.model),
-            },
-            onFinish(message) {
-              get().updateCurrentSession(
-                (session) =>
-                  (session.topic =
-                    message.length > 0 ? trimTopic(message) : DEFAULT_TOPIC),
-              );
-            },
-          });
+          // api.llm.chat({
+          //   messages: topicMessages,
+          //   config: {
+          //     model: getSummarizeModel(session.mask.modelConfig.model),
+          //   },
+          //   onFinish(message) {
+          //     get().updateCurrentSession(
+          //       (session) =>
+          //         (session.topic =
+          //           message.length > 0 ? trimTopic(message) : DEFAULT_TOPIC),
+          //     );
+          //   },
+          // });
         }
         const summarizeIndex = Math.max(
           session.lastSummarizeIndex,
@@ -546,45 +546,45 @@ export const useChatStore = createPersistStore(
 
         const lastSummarizeIndex = session.messages.length;
 
-        console.log(
-          "[Chat History] ",
-          toBeSummarizedMsgs,
-          historyMsgLength,
-          modelConfig.compressMessageLengthThreshold,
-        );
+        // console.log(
+        //   "[Chat History] ",
+        //   toBeSummarizedMsgs,
+        //   historyMsgLength,
+        //   modelConfig.compressMessageLengthThreshold,
+        // );
 
-        if (
-          historyMsgLength > modelConfig.compressMessageLengthThreshold &&
-          modelConfig.sendMemory
-        ) {
-          api.llm.chat({
-            messages: toBeSummarizedMsgs.concat(
-              createMessage({
-                role: "system",
-                content: Locale.Store.Prompt.Summarize,
-                date: "",
-              }),
-            ),
-            config: {
-              ...modelConfig,
-              stream: true,
-              model: getSummarizeModel(session.mask.modelConfig.model),
-            },
-            onUpdate(message) {
-              session.memoryPrompt = message;
-            },
-            onFinish(message) {
-              console.log("[Memory] ", message);
-              get().updateCurrentSession((session) => {
-                session.lastSummarizeIndex = lastSummarizeIndex;
-                session.memoryPrompt = message; // Update the memory prompt for stored it in local storage
-              });
-            },
-            onError(err) {
-              console.error("[Summarize] ", err);
-            },
-          });
-        }
+        // if (
+        //   historyMsgLength > modelConfig.compressMessageLengthThreshold &&
+        //   modelConfig.sendMemory
+        // ) {
+        //   api.llm.chat({
+        //     messages: toBeSummarizedMsgs.concat(
+        //       createMessage({
+        //         role: "system",
+        //         content: Locale.Store.Prompt.Summarize,
+        //         date: "",
+        //       }),
+        //     ),
+        //     config: {
+        //       ...modelConfig,
+        //       stream: true,
+        //       model: getSummarizeModel(session.mask.modelConfig.model),
+        //     },
+        //     onUpdate(message) {
+        //       session.memoryPrompt = message;
+        //     },
+        //     onFinish(message) {
+        //       console.log("[Memory] ", message);
+        //       get().updateCurrentSession((session) => {
+        //         session.lastSummarizeIndex = lastSummarizeIndex;
+        //         session.memoryPrompt = message; // Update the memory prompt for stored it in local storage
+        //       });
+        //     },
+        //     onError(err) {
+        //       console.error("[Summarize] ", err);
+        //     },
+        //   });
+        // }
       },
 
       updateStat(message: ChatMessage) {
