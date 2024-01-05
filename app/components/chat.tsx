@@ -468,15 +468,15 @@ export function ChatActions(props: {
           icon={<BottomIcon />}
         />
       )}
-      {props.hitBottom && (
+      {/* {props.hitBottom && (
         <ChatAction
           onClick={props.showPromptModal}
           text={Locale.Chat.InputActions.Settings}
           icon={<SettingsIcon />}
         />
-      )}
+      )} */}
 
-      <ChatAction
+      {/* <ChatAction
         onClick={nextTheme}
         text={Locale.Chat.InputActions.Theme[theme]}
         icon={
@@ -490,7 +490,7 @@ export function ChatActions(props: {
             ) : null}
           </>
         }
-      />
+      /> */}
 
       <ChatAction
         onClick={props.showPromptHints}
@@ -880,34 +880,32 @@ function _Chat() {
 
   // preview messages
   const renderMessages = useMemo(() => {
-    return context
-      .concat(session.messages as RenderMessage[])
-      .concat(
-        isLoading
-          ? [
-              {
-                ...createMessage({
-                  role: "assistant",
-                  content: "……",
-                }),
-                preview: true,
-              },
-            ]
-          : [],
-      )
-      .concat(
-        userInput.length > 0 && config.sendPreviewBubble
-          ? [
-              {
-                ...createMessage({
-                  role: "user",
-                  content: userInput,
-                }),
-                preview: true,
-              },
-            ]
-          : [],
-      );
+    return context.concat(session.messages as RenderMessage[]).concat(
+      isLoading
+        ? [
+            {
+              ...createMessage({
+                role: "assistant",
+                content: "……",
+              }),
+              preview: true,
+            },
+          ]
+        : [],
+    );
+    // .concat(
+    //   userInput.length > 0 && config.sendPreviewBubble
+    //     ? [
+    //         {
+    //           ...createMessage({
+    //             role: "user",
+    //             content: userInput,
+    //           }),
+    //           preview: true,
+    //         },
+    //       ]
+    //     : [],
+    // );
   }, [
     config.sendPreviewBubble,
     context,
@@ -1202,11 +1200,6 @@ function _Chat() {
                               />
 
                               <ChatAction
-                                text={Locale.Chat.Actions.Pin}
-                                icon={<PinIcon />}
-                                onClick={() => onPinMessage(message)}
-                              />
-                              <ChatAction
                                 text={Locale.Chat.Actions.Copy}
                                 icon={<CopyIcon />}
                                 onClick={() => copyToClipboard(message.content)}
@@ -1273,7 +1266,7 @@ function _Chat() {
             onSearch("");
           }}
           clearContext={() => {
-            chatStore.updateCurrentSession((session,) => {
+            chatStore.updateCurrentSession((session) => {
               if (session.clearContextIndex === session.messages.length) {
                 session.clearContextIndex = undefined;
               } else {
@@ -1281,7 +1274,7 @@ function _Chat() {
                 session.memoryPrompt = ""; // will clear memory
               }
             });
-            setUserInput("")
+            setUserInput("");
           }}
         />
         <div className={styles["chat-input-panel-inner"]}>
