@@ -65,9 +65,9 @@ export const REQUEST_TIMEOUT_MS = 60000;
 export const EXPORT_MESSAGE_CLASS_NAME = "export-markdown";
 
 export enum ServiceProvider {
+  Google = "Google",
   OpenAI = "OpenAI",
   Azure = "Azure",
-  Google = "Google",
 }
 
 export enum ModelProvider {
