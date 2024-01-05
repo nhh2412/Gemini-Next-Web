@@ -1043,7 +1043,7 @@ export function Settings() {
                     </>
                   ) : accessStore.provider === "Google" ? (
                     <>
-                      <ListItem
+                      {/* <ListItem
                         title={Locale.Settings.Access.Google.Endpoint.Title}
                         subTitle={
                           Locale.Settings.Access.Google.Endpoint.SubTitle +
@@ -1061,7 +1061,7 @@ export function Settings() {
                             )
                           }
                         ></input>
-                      </ListItem>
+                      </ListItem> */}
                       <ListItem
                         title={Locale.Settings.Access.Azure.ApiKey.Title}
                         subTitle={Locale.Settings.Access.Azure.ApiKey.SubTitle}
@@ -1080,7 +1080,7 @@ export function Settings() {
                           }}
                         />
                       </ListItem>
-                      <ListItem
+                      {/* <ListItem
                         title={Locale.Settings.Access.Google.ApiVerion.Title}
                         subTitle={
                           Locale.Settings.Access.Google.ApiVerion.SubTitle
@@ -1098,7 +1098,7 @@ export function Settings() {
                             )
                           }
                         ></input>
-                      </ListItem>
+                      </ListItem> */}
                     </>
                   ) : null}
                 </>
@@ -1106,7 +1106,7 @@ export function Settings() {
             </>
           )}
 
-          <ListItem
+          {/* <ListItem
             title={Locale.Settings.Access.CustomModel.Title}
             subTitle={Locale.Settings.Access.CustomModel.SubTitle}
           >
@@ -1120,7 +1120,7 @@ export function Settings() {
                 )
               }
             ></input>
-          </ListItem>
+          </ListItem> */}
         </List>
 
         <List>
