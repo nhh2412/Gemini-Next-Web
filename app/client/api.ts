@@ -1,10 +1,12 @@
 import { getClientConfig } from "../config/client";
 import {
   ACCESS_CODE_PREFIX,
+  Azure,
   ModelProvider,
   ServiceProvider,
 } from "../constant";
 import { ChatMessage, ModelType, useAccessStore, useChatStore } from "../store";
+import { ChatGPTApi } from "./platforms/openai";
 import { GeminiProApi } from "./platforms/google";
 export const ROLES = ["system", "user", "assistant"] as const;
 export type MessageRole = (typeof ROLES)[number];
@@ -83,9 +85,12 @@ interface ChatProvider {
 export class ClientApi {
   public llm: LLMApi;
 
-  constructor(provider: ModelProvider) {
-    this.llm = new GeminiProApi();
-    return;
+  constructor(provider: ModelProvider = ModelProvider.GPT) {
+    if (provider === ModelProvider.GeminiPro) {
+      this.llm = new GeminiProApi();
+      return;
+    }
+    this.llm = new ChatGPTApi();
   }
 
   config() {}
@@ -142,14 +147,15 @@ export function getHeaders() {
   };
   const modelConfig = useChatStore.getState().currentSession().mask.modelConfig;
   const isGoogle = modelConfig.model === "gemini-pro";
-  const authHeader = false ? "api-key" : "Authorization";
+  const isAzure = accessStore.provider === ServiceProvider.Azure;
+  const authHeader = isAzure ? "api-key" : "Authorization";
   const apiKey = isGoogle
     ? accessStore.googleApiKey
-    : false
+    : isAzure
     ? accessStore.azureApiKey
     : accessStore.openaiApiKey;
 
-  const makeBearer = (s: string) => `${false ? "" : "Bearer "}${s.trim()}`;
+  const makeBearer = (s: string) => `${isAzure ? "" : "Bearer "}${s.trim()}`;
   const validString = (x: string) => x && x.length > 0;
 
   // use user's api key first
