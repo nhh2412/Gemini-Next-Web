@@ -1,7 +1,6 @@
 import { getClientConfig } from "../config/client";
 import {
   ACCESS_CODE_PREFIX,
-  Azure,
   ModelProvider,
   ServiceProvider,
 } from "../constant";
@@ -136,11 +135,10 @@ export function getHeaders() {
   };
   const modelConfig = useChatStore.getState().currentSession().mask.modelConfig;
   const isGoogle = modelConfig.model === "gemini-pro";
-  const isAzure = accessStore.provider === ServiceProvider.Azure;
-  const authHeader = isAzure ? "api-key" : "Authorization";
+  const authHeader = "Authorization";
   const apiKey = isGoogle
 
-  const makeBearer = (s: string) => `${isAzure ? "" : "Bearer "}${s.trim()}`;
+  const makeBearer = (s: string) => `${"" : "Bearer "}${s.trim()}`;
   const validString = (x: string) => x && x.length > 0;
 
   // use user's api key first
