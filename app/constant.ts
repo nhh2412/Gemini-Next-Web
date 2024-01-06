@@ -71,8 +71,8 @@ export enum ServiceProvider {
 }
 
 export enum ModelProvider {
-  GPT = "GPT",
   GeminiPro = "GeminiPro",
+  GPT = "GPT",
 }
 
 export const OpenaiPath = {
@@ -121,15 +121,15 @@ export const DEFAULT_MODELS = [
       providerType: "google",
     },
   },
-  // {
-  //   name: "gpt-4",
-  //   available: true,
-  //   provider: {
-  //     id: "openai",
-  //     providerName: "OpenAI",
-  //     providerType: "openai",
-  //   },
-  // },
+  {
+    name: "gpt-4",
+    available: true,
+    provider: {
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
+    },
+  },
   // {
   //   name: "gpt-4-0314",
   //   available: true,
@@ -238,15 +238,15 @@ export const DEFAULT_MODELS = [
   //     providerType: "openai",
   //   },
   // },
-  // {
-  //   name: "gpt-3.5-turbo-16k-0613",
-  //   available: true,
-  //   provider: {
-  //     id: "openai",
-  //     providerName: "OpenAI",
-  //     providerType: "openai",
-  //   },
-  // },
+  {
+    name: "gpt-3.5-turbo-16k-0613",
+    available: true,
+    provider: {
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
+    },
+  },
 ] as const;
 
 export const CHAT_PAGE_SIZE = 15;
