@@ -11,7 +11,7 @@ import { Analytics } from "@vercel/analytics/react";
 const serverConfig = getServerSideConfig();
 
 export const metadata: Metadata = {
-  title: "GeminiChat",
+  title: "NetxtChat",
   description: "Your personal Gemini Chat Bot.",
   viewport: {
     width: "device-width",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     { media: "(prefers-color-scheme: dark)", color: "#151515" },
   ],
   appleWebApp: {
-    title: "GeminiChat",
+    title: "NetxtChat",
     statusBarStyle: "default",
   },
 };

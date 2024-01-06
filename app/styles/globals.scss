@@ -361,3 +361,8 @@ pre {
 .copyable {
   user-select: text;
 }
+.show-text {
+  transition-delay: var(--delay) !important;
+  opacity: 1 !important;
+  transform: translate(0) !important;
+}

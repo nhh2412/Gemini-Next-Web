@@ -1,5 +1,5 @@
 export const OWNER = "nhh2412";
-export const REPO = "Gemini-Next-Web";
+export const REPO = "NextChat";
 export const REPO_URL = `https://github.com/${OWNER}/${REPO}`;
 export const ISSUE_URL = `https://github.com/${OWNER}/${REPO}/issues`;
 export const UPDATE_URL = `${REPO_URL}#keep-updated`;
@@ -48,9 +48,9 @@ export enum StoreKey {
   Sync = "sync",
 }
 
-export const DEFAULT_SIDEBAR_WIDTH = 300;
+export const DEFAULT_SIDEBAR_WIDTH = 315;
 export const MAX_SIDEBAR_WIDTH = 500;
-export const MIN_SIDEBAR_WIDTH = 230;
+export const MIN_SIDEBAR_WIDTH = 300;
 export const NARROW_SIDEBAR_WIDTH = 100;
 
 export const ACCESS_CODE_PREFIX = "nk-";

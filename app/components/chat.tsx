@@ -89,6 +89,7 @@ import { prettyObject } from "../utils/format";
 import { ExportMessageModal } from "./exporter";
 import { getClientConfig } from "../config/client";
 import { useAllModels } from "../utils/hooks";
+import { log } from "console";
 
 const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
   loading: () => <LoadingIcon />,
@@ -329,6 +330,7 @@ function ClearContextDivider() {
 function ChatAction(props: {
   text: string;
   icon: JSX.Element;
+  isModel: boolean;
   onClick: () => void;
 }) {
   const iconRef = useRef<HTMLDivElement>(null);
@@ -359,16 +361,21 @@ function ChatAction(props: {
       onMouseEnter={updateWidth}
       onTouchStart={updateWidth}
       style={
-        {
-          "--icon-width": `${width.icon}px`,
-          "--full-width": `${width.full}px`,
-        } as React.CSSProperties
+        props.isModel
+          ? {}
+          : ({
+              "--icon-width": `${width.icon}px`,
+              "--full-width": `${width.full}px`,
+            } as React.CSSProperties)
       }
     >
       <div ref={iconRef} className={styles["icon"]}>
         {props.icon}
       </div>
-      <div className={styles["text"]} ref={textRef}>
+      <div
+        className={`${styles["text"]} ${props.isModel ? "show-text" : ""}`}
+        ref={textRef}
+      >
         {props.text}
       </div>
     </div>
@@ -456,6 +463,7 @@ export function ChatActions(props: {
     <div className={styles["chat-input-actions"]}>
       {couldStop && (
         <ChatAction
+          isModel={false}
           onClick={stopAll}
           text={Locale.Chat.InputActions.Stop}
           icon={<StopIcon />}
@@ -463,6 +471,7 @@ export function ChatActions(props: {
       )}
       {!props.hitBottom && (
         <ChatAction
+          isModel={false}
           onClick={props.scrollToBottom}
           text={Locale.Chat.InputActions.ToBottom}
           icon={<BottomIcon />}
@@ -470,6 +479,7 @@ export function ChatActions(props: {
       )}
       {/* {props.hitBottom && (
         <ChatAction
+          isModel={false}
           onClick={props.showPromptModal}
           text={Locale.Chat.InputActions.Settings}
           icon={<SettingsIcon />}
@@ -477,6 +487,7 @@ export function ChatActions(props: {
       )} */}
 
       {/* <ChatAction
+        isModel={false}
         onClick={nextTheme}
         text={Locale.Chat.InputActions.Theme[theme]}
         icon={
@@ -493,12 +504,14 @@ export function ChatActions(props: {
       /> */}
 
       <ChatAction
+        isModel={false}
         onClick={props.showPromptHints}
         text={Locale.Chat.InputActions.Prompt}
         icon={<PromptIcon />}
       />
 
       {/* <ChatAction
+        isModel={false}
         onClick={() => {
           navigate(Path.Masks);
         }}
@@ -507,13 +520,15 @@ export function ChatActions(props: {
       /> */}
 
       <ChatAction
+        isModel={false}
         text={Locale.Chat.InputActions.Clear}
         icon={<BreakIcon />}
         onClick={props.clearContext}
       />
 
       <ChatAction
-        onClick={() => setShowModelSelector(false)}
+        isModel={true}
+        onClick={() => setShowModelSelector(true)}
         text={currentModel}
         icon={<RobotIcon />}
       />
@@ -1066,7 +1081,7 @@ function _Chat() {
           </div>
         </div>
         <div className="window-actions">
-          {/* {!isMobileScreen && (
+          {!isMobileScreen && (
             <div className="window-action-button">
               <IconButton
                 icon={<RenameIcon />}
@@ -1074,7 +1089,7 @@ function _Chat() {
                 onClick={() => setIsEditingMessage(true)}
               />
             </div>
-          )} */}
+          )}
           <div className="window-action-button">
             <IconButton
               icon={<ExportIcon />}
@@ -1181,6 +1196,7 @@ function _Chat() {
                         <div className={styles["chat-input-actions"]}>
                           {message.streaming ? (
                             <ChatAction
+                              isModel={false}
                               text={Locale.Chat.Actions.Stop}
                               icon={<StopIcon />}
                               onClick={() => onUserStop(message.id ?? i)}
@@ -1188,18 +1204,21 @@ function _Chat() {
                           ) : (
                             <>
                               <ChatAction
+                                isModel={false}
                                 text={Locale.Chat.Actions.Retry}
                                 icon={<ResetIcon />}
                                 onClick={() => onResend(message)}
                               />
 
                               <ChatAction
+                                isModel={false}
                                 text={Locale.Chat.Actions.Delete}
                                 icon={<DeleteIcon />}
                                 onClick={() => onDelete(message.id ?? i)}
                               />
 
                               <ChatAction
+                                isModel={false}
                                 text={Locale.Chat.Actions.Copy}
                                 icon={<CopyIcon />}
                                 onClick={() => copyToClipboard(message.content)}

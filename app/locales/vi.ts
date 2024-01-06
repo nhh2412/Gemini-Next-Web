@@ -11,7 +11,7 @@ const vi: PartialLocaleType = {
     ChatItemCount: (count: number) => `${count} tin nhắn`,
   },
   Chat: {
-    SubTitle: (count: number) => `${count} tin nhắn với Gemini`,
+    SubTitle: (count: number) => `${count} tin nhắn với AI`,
     Actions: {
       ChatList: "Xem danh sách chat",
       CompressedHistory: "Nén tin nhắn trong quá khứ",
