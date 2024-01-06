@@ -121,15 +121,15 @@ export const DEFAULT_MODELS = [
       providerType: "google",
     },
   },
-  {
-    name: "gpt-4",
-    available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
-  },
+  // {
+  //   name: "gpt-4",
+  //   available: true,
+  //   provider: {
+  //     id: "openai",
+  //     providerName: "OpenAI",
+  //     providerType: "openai",
+  //   },
+  // },
   // {
   //   name: "gpt-4-0314",
   //   available: true,
@@ -175,15 +175,15 @@ export const DEFAULT_MODELS = [
   //     providerType: "openai",
   //   },
   // },
-  // {
-  //   name: "gpt-4-1106-preview",
-  //   available: true,
-  //   provider: {
-  //     id: "openai",
-  //     providerName: "OpenAI",
-  //     providerType: "openai",
-  //   },
-  // },
+  {
+    name: "gpt-4-1106-preview",
+    available: false,
+    provider: {
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
+    },
+  },
   // {
   //   name: "gpt-4-vision-preview",
   //   available: true,
@@ -195,7 +195,7 @@ export const DEFAULT_MODELS = [
   // },
   {
     name: "gpt-3.5-turbo",
-    available: true,
+    available: false,
     provider: {
       id: "openai",
       providerName: "OpenAI",
@@ -220,15 +220,15 @@ export const DEFAULT_MODELS = [
   //     providerType: "openai",
   //   },
   // },
-  // {
-  //   name: "gpt-3.5-turbo-1106",
-  //   available: true,
-  //   provider: {
-  //     id: "openai",
-  //     providerName: "OpenAI",
-  //     providerType: "openai",
-  //   },
-  // },
+  {
+    name: "gpt-3.5-turbo-1106",
+    available: true,
+    provider: {
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
+    },
+  },
   // {
   //   name: "gpt-3.5-turbo-16k",
   //   available: true,
@@ -238,15 +238,15 @@ export const DEFAULT_MODELS = [
   //     providerType: "openai",
   //   },
   // },
-  {
-    name: "gpt-3.5-turbo-16k-0613",
-    available: true,
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-    },
-  },
+  // {
+  //   name: "gpt-3.5-turbo-16k-0613",
+  //   available: true,
+  //   provider: {
+  //     id: "openai",
+  //     providerName: "OpenAI",
+  //     providerType: "openai",
+  //   },
+  // },
 ] as const;
 
 export const CHAT_PAGE_SIZE = 15;
